@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, tap } from 'rxjs';
 import { isPlatformBrowser } from '@angular/common';
 
-const API_BASE = 'http://localhost:4000/api/v1'; // ajustar si cambia
+const API_BASE = 'http://localhost:4000/api/v1'; 
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
@@ -14,7 +14,6 @@ export class AuthService {
   isLoggedIn$ = this._isLoggedIn.asObservable();
 
   constructor() {
-    // Solo verificar el estado de autenticación en el browser
     if (isPlatformBrowser(this.platformId)) {
       this._isLoggedIn.next(!!this.getToken());
     }

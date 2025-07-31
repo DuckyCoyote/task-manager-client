@@ -8,7 +8,6 @@ export const authGuard: CanActivateFn = (route, state) => {
   const router = inject(Router);
   const platformId = inject(PLATFORM_ID);
   
-  // En el servidor, siempre permitir el acceso
   if (!isPlatformBrowser(platformId)) {
     return true;
   }
