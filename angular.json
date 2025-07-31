@@ -56,6 +56,14 @@
               "optimization": false,
               "extractLicenses": false,
               "sourceMap": true
+            },
+            "spa": {
+              "optimization": false,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "outputMode": "static",
+              "server": false,
+              "ssr": false
             }
           },
           "defaultConfiguration": "production"
@@ -97,5 +105,8 @@
         }
       }
     }
+  },
+  "cli": {
+    "analytics": "25ee2207-060d-4af0-94c1-d0f10a1b83b0"
   }
 }

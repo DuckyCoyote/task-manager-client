@@ -1,0 +1,98 @@
+<div class="container">
+  <div class="header">
+    <h2>Mis Tareas</h2>
+    <button type="button" class="btn btn-danger logout-btn" (click)="logout()">Cerrar Sesión</button>
+  </div>
+  
+  <form (submit)="create($event)" class="task-form">
+    <div class="form-row">
+      <div class="form-group">
+        <label for="titulo">Título</label>
+        <input 
+          id="titulo"
+          type="text"
+          placeholder="Título de la tarea" 
+          [(ngModel)]="titulo" 
+          name="titulo" 
+          required 
+        />
+      </div>
+      
+      <div class="form-group">
+        <label for="descripcion">Descripción</label>
+        <input
+          id="descripcion"
+          type="text"
+          placeholder="Descripción de la tarea"
+          [(ngModel)]="descripcion"
+          name="descripcion"
+        />
+      </div>
+      
+      <div class="form-group">
+        <label for="estatus">Estado</label>
+        <select id="estatus" [(ngModel)]="estatus" name="estatus">
+          <option value="pendiente">Pendiente</option>
+          <option value="completado">Completado</option>
+        </select>
+      </div>
+    </div>
+    
+    <button type="submit" class="btn btn-primary">Agregar Tarea</button>
+  </form>
+
+  <!-- Filtros de tareas -->
+  <div class="filter-section">
+    <div class="filter-buttons">
+      <button 
+        type="button" 
+        class="btn filter-btn" 
+        [class.btn-primary]="filtroActual === 'todas'"
+        [class.btn-secondary]="filtroActual !== 'todas'"
+        (click)="cambiarFiltro('todas')">
+        Todas ({{ contadorTareas.todas }})
+      </button>
+      <button 
+        type="button" 
+        class="btn filter-btn" 
+        [class.btn-primary]="filtroActual === 'pendiente'"
+        [class.btn-secondary]="filtroActual !== 'pendiente'"
+        (click)="cambiarFiltro('pendiente')">
+        Pendientes ({{ contadorTareas.pendientes }})
+      </button>
+      <button 
+        type="button" 
+        class="btn filter-btn" 
+        [class.btn-primary]="filtroActual === 'completado'"
+        [class.btn-secondary]="filtroActual !== 'completado'"
+        (click)="cambiarFiltro('completado')">
+        Completadas ({{ contadorTareas.completadas }})
+      </button>
+    </div>
+    
+    <div class="filter-info">
+      <span class="current-filter">
+        Mostrando: {{ filtroActual === 'todas' ? 'Todas las tareas' : 
+                      filtroActual === 'pendiente' ? 'Solo pendientes' : 'Solo completadas' }}
+      </span>
+    </div>
+  </div>
+
+  <ul class="task-list">
+    <li *ngFor="let t of filteredTasks" class="card task-card">
+      <div class="task-info">
+        <strong>{{ t.titulo }}</strong>
+        <span class="task-description">{{ t.descripcion }}</span>
+        <span class="task-status" [class.completed]="t.estatus === 'completado'">
+          [{{ t.estatus }}]
+        </span>
+      </div>
+      <div class="task-actions">
+        <button class="btn btn-secondary btn-sm" (click)="toggleStatus(t)">
+          {{ t.estatus === "pendiente" ? "Marcar completado" : "Marcar pendiente" }}
+        </button>
+        <button class="btn btn-danger btn-sm" (click)="delete(t.id)">Eliminar</button>
+      </div>
+    </li>
+  </ul>
+</div>
